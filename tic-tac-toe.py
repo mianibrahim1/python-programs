@@ -17,17 +17,36 @@ class tic_tac_toe_board:
         self.board_array[place] = token
     def check_full(self):
          self.count = 0;
-         for i in range(len(self.board_array)):
-            if self.board_array[i] != '-':
+         for i in range(len(self.board_array) - 1) :
+            if self.board_array[i + 1] != '-':
                 self.count = self.count + 1;
             if self.count == 9:
                 print "Board is Full"
-                return
+                return True
          print "Board is not Full"
+         return False
 
     def move(self, place,token):
         self.board_array[place] = token
 
+    def does_win(self):
+        if self.board_array[1] == self.board_array[2] and self.board_array[2] == self.board_array[3]:
+            return self.board_array[1]
+        elif self.board_array[4] == self.board_array[5] and self.board_array[5] == self.board_array[6]:
+            return self.board_array[4]
+        elif self.board_array[7] == self.board_array[8] and self.board_array[8] == self.board_array[9]:
+            return self.board_array[7]
+        elif self.board_array[3] == self.board_array[4] and self.board_array[4] == self.board_array[7]:
+            return self.board_array[3]
+        elif self.board_array[2] == self.board_array[5] and self.board_array[5] == self.board_array[8]:
+            return self.board_array[2]
+        elif self.board_array[3] == self.board_array[6] and self.board_array[6] == self.board_array[9]:
+            return self.board_array[3]
+        elif self.board_array[1] == self.board_array[5] and self.board_array[5] == self.board_array[9]:
+            return self.board_array[1]
+        elif self.board_array[3] == self.board_array[5] and self.board_array[5] == self.board_array[7]:
+            return self.board_array[1]
+        return '-'
 class tic_tac_toe_ai:
     def __init__(self):
         pass
@@ -37,17 +56,40 @@ class tic_tac_toe_ai:
            if board.board_array[i] == '-':
                return i
                self.count = self.count + 1;
-           if count == 9:
+           if self.count == 9:
                print "Board is Full"
 
-
-my_board = tic_tac_toe_board()
-my_board.print_board()
-my_board.add_token(1,'O')
-my_board.print_board()
-my_ai = tic_tac_toe_ai()
-num =  my_ai.make_move(my_board)
-my_board.move(num,'X')
-print num
-my_board.print_board()
-my_board.check_full()
+class game:
+    def __init__(self):
+        self.my_board = tic_tac_toe_board()
+        self.my_board.print_board()
+        self.win_state = False
+    def play(self):
+        while not self.win_state:
+            self.player_move = int(raw_input("Input number between 1 and 9 for valid move:"))
+            if self.player_move < 1 or self.player_move > 9:
+                continue
+            self.my_board.add_token(self.player_move,'O')
+            self.my_board.print_board()
+            if self.my_board.does_win() == 'O':
+                print 'O Wins'
+                break
+            elif self.my_board.does_win() == 'X':
+                print 'X Wins'
+                break
+            if self.my_board.check_full():
+                break
+            self.my_ai = tic_tac_toe_ai()
+            self.ai_move = self.my_ai.make_move(self.my_board)
+            self.my_board.move(self.ai_move,'X')
+            self.my_board.print_board()
+            if self.my_board.does_win() == 'O':
+                print 'O Wins'
+                break
+            elif self.my_board.does_win() == 'X':
+                print 'X Wins'
+                break
+            if self.my_board.check_full():
+                break
+new_game = game()
+new_game.play()
