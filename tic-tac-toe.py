@@ -51,14 +51,12 @@ class tic_tac_toe_ai:
     def __init__(self):
         pass
     def make_move(self,board):
-        self.count = 0
-        for i in range(len(board.board_array)):
-           if board.board_array[i] == '-':
-               return i
-               self.count = self.count + 1;
-           if self.count == 9:
-               print "Board is Full"
-
+        # 1 2 3 = 6
+        # 4 5 6 = 12
+        # 7 8 9 = 24
+        # 13 15 18      15   15
+        # Ai will block the player while making his own pieces.
+        pass
 class game:
     def __init__(self):
         self.my_board = tic_tac_toe_board()
