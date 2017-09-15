@@ -4,7 +4,7 @@ class TreeNode(object):
          self.left = None
          self.right = None
 
-class Binary_Tree:
+class Binary_Tree(object):
     def __init__(self,root_node):
         self.root = root_node
 
