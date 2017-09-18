@@ -1,2 +1,2 @@
 # python-programs
-This repository is for the fun python programs that I am writing to enhance my python skills.
+Sharpening my python data structures,algorithms and also some object oriented design concepts.
